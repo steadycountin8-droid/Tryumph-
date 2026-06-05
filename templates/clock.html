@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Digital Clock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='clock.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 Global Digital Clock</h1>
+            <p>Real-time display across timezones</p>
+        </header>
+
+        <div class="clock-grid" id="clockGrid">
+            <!-- Clocks will be populated by JavaScript -->
+        </div>
+
+        <div class="controls">
+            <button onclick="toggleFormat()" class="btn btn-toggle">Toggle 24/12 Hour Format</button>
+            <button onclick="toggleAMPM()" class="btn btn-toggle">Toggle AM/PM</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='clock.js') }}"></script>
+</body>
+</html>

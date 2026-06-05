@@ -1,0 +1,220 @@
+:root {
+    --primary: #0a0e27;
+    --secondary: #1a1f3a;
+    --tertiary: #252d47;
+    --accent: #00d4ff;
+    --text: #ecf0f1;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --border: #3a4660;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: slideDown 0.6s ease-out;
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    color: var(--accent);
+    letter-spacing: 3px;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #aaa;
+    letter-spacing: 1px;
+}
+
+.clock-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.clock-card {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--tertiary) 100%);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.clock-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.clock-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+.clock-card:hover::before {
+    left: 100%;
+}
+
+.clock-location {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.clock-time {
+    font-size: 3.5em;
+    font-weight: bold;
+    color: #00ff88;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+.clock-ampm {
+    font-size: 1.8em;
+    color: var(--accent);
+    margin-bottom: 15px;
+    min-height: 40px;
+}
+
+.clock-date {
+    font-size: 0.95em;
+    color: #bbb;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.clock-offset {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+
+.offset-label {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: slideUp 0.6s ease-out;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: 2px solid var(--accent);
+    background: var(--secondary);
+    color: var(--accent);
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .clock-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .clock-time {
+        font-size: 2.5em;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.9em;
+    }
+}
