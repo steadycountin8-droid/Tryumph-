@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triumph - Cash Games Wallet</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --text: #ecf0f1;
+            --border: #0f3460;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--accent) 0%, #0f3460 100%);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            color: #00d4ff;
+            font-size: 1.3em;
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .subsection:last-child {
+            border-bottom: none;
+        }
+
+        .subsection h3 {
+            margin-bottom: 15px;
+            color: #00d4ff;
+            font-size: 1.1em;
+        }
+
+        .wallet-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .wallet-info {
+            margin-top: 15px;
+        }
+
+        .wallet-info p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .balance {
+            font-size: 1.3em;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: var(--primary);
+            color: var(--text);
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0f3460;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: white;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background: #0f3460;
+            transform: translateY(-2px);
+        }
+
+        .match-result {
+            background: var(--primary);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .match-result.win {
+            border-color: var(--success);
+        }
+
+        .match-result.loss {
+            border-color: var(--danger);
+        }
+
+        #result-content {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .result-score {
+            font-size: 1.3em;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .history {
+            background: var(--primary);
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid #00d4ff;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+
+        .placeholder {
+            color: #777;
+            font-style: italic;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .alert-error {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid var(--danger);
+            color: #ff6b6b;
+        }
+
+        .alert-success {
+            background: rgba(39, 174, 96, 0.2);
+            border-left: 4px solid var(--success);
+            color: #51cf66;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 TRIUMPH</h1>
+            <p>Cash Games Wallet</p>
+        </header>
+
+        <!-- Setup Section -->
+        <div id="setup-section" class="section">
+            <h2>Initialize Account</h2>
+            <div class="form-group">
+                <label for="cashtag">Cashtag/Username:</label>
+                <input type="text" id="cashtag" placeholder="PlayerOne" value="PlayerOne">
+            </div>
+            <div class="form-group">
+                <label for="initial-balance">Initial Balance:</label>
+                <input type="number" id="initial-balance" placeholder="10.00" value="10.00" min="0" step="0.01">
+            </div>
+            <button onclick="initWallet()" class="btn btn-primary">Create Account</button>
+        </div>
+
+        <!-- Main Wallet Section -->
+        <div id="wallet-section" class="section hidden">
+            <div class="wallet-header">
+                <h2>--- CASH APP GAMES WALLET ---</h2>
+                <div class="wallet-info">
+                    <p>User: <span id="wallet-cashtag">$PlayerOne</span></p>
+                    <p class="balance">Available Balance: <span id="wallet-balance">$0.00</span></p>
+                </div>
+            </div>
+
+            <!-- Deposit Section -->
+            <div class="subsection">
+                <h3>💳 Deposit Funds</h3>
+                <div class="form-group">
+                    <input type="number" id="deposit-amount" placeholder="Enter amount" min="0" step="0.01">
+                    <button onclick="depositFunds()" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+
+            <!-- Match Section -->
+            <div class="subsection">
+                <h3>🎮 Play a Match</h3>
+                <div class="form-group">
+                    <label for="game-select">Select Game:</label>
+                    <select id="game-select">
+                        <option value="Stocks Runner">Stocks Runner</option>
+                        <option value="Basketball Shootout">Basketball Shootout</option>
+                        <option value="Quick Trade">Quick Trade</option>
+                        <option value="Speed Clicker">Speed Clicker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="wager-amount">Wager Amount:</label>
+                    <input type="number" id="wager-amount" placeholder="5.00" value="5.00" min="0" step="0.01">
+                </div>
+                <button onclick="playMatch()" class="btn btn-warning">Enter Match</button>
+            </div>
+
+            <!-- Match Result -->
+            <div id="match-result" class="match-result hidden">
+                <div id="result-content"></div>
+            </div>
+
+            <!-- Activity History -->
+            <div class="subsection">
+                <h3>📋 Activity History</h3>
+                <div id="history" class="history">
+                    <p class="placeholder">No activity yet</p>
+                </div>
+            </div>
+
+            <button onclick="resetWallet()" class="btn btn-secondary">Reset Account</button>
+        </div>
+    </div>
+
+    <script>
+        class CashGamesEngine {
+            constructor(cashtag, balance = 0.00) {
+                this.cashtag = `$${cashtag.replace(/^\$/, '')}`;
+                this.balance = parseFloat(balance);
+                this.history = [];
+            }
+
+            depositFunds(amount) {
+                this.balance += parseFloat(amount);
+                this.history.push(`Deposited +$${parseFloat(amount).toFixed(2)} via Linked Debit`);
+                return `Success. New Balance: $${this.balance.toFixed(2)}`;
+            }
+
+            enter1v1Match(gameName, wager) {
+                if (this.balance < wager) {
+                    return { status: "error", message: "❌ Declined: Insufficient Funds. Add cash to enter tournament." };
+                }
+
+                this.balance -= wager;
+                this.history.push(`Escrow: Wagered $${wager.toFixed(2)} on ${gameName}`);
+
+                const playerScore = Math.floor(Math.random() * 21) + 80;
+                const opponentScore = Math.floor(Math.random() * 29) + 70;
+
+                if (playerScore > opponentScore) {
+                    const winnings = wager * 1.8;
+                    this.balance += winnings;
+                    this.history.push(`🏆 Match Won! ${gameName} (${playerScore} vs ${opponentScore}). Payout: +$${winnings.toFixed(2)}`);
+                    return {
+                        status: "win",
+                        message: `MATCH OVER: You Won! Payout $${winnings.toFixed(2)} added to your Cash Balance.`,
+                        playerScore,
+                        opponentScore,
+                        winnings,
+                        balance: this.balance
+                    };
+                } else {
+                    this.history.push(`💀 Match Lost. ${gameName} (${playerScore} vs ${opponentScore})`);
+                    return {
+                        status: "loss",
+                        message: `MATCH OVER: Defeat. Opponent scored higher. Wager lost.`,
+                        playerScore,
+                        opponentScore,
+                        balance: this.balance
+                    };
+                }
+            }
+
+            getWalletState() {
+                return {
+                    cashtag: this.cashtag,
+                    balance: this.balance,
+                    history: this.history.slice(-5)
+                };
+            }
+        }
+
+        let userEngine = null;
+
+        function initWallet() {
+            const cashtag = document.getElementById('cashtag').value || 'PlayerOne';
+            const balance = parseFloat(document.getElementById('initial-balance').value) || 10.00;
+
+            userEngine = new CashGamesEngine(cashtag, balance);
+            updateWalletDisplay(userEngine.getWalletState());
+            document.getElementById('setup-section').classList.add('hidden');
+            document.getElementById('wallet-section').classList.remove('hidden');
+        }
+
+        function depositFunds() {
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+
+            if (!amount || amount <= 0) {
+                showAlert('Please enter a valid amount', 'error');
+                return;
+            }
+
+            userEngine.depositFunds(amount);
+            updateWalletDisplay(userEngine.getWalletState());
+            document.getElementById('deposit-amount').value = '';
+            showAlert(`✅ Successfully deposited $${amount.toFixed(2)}`, 'success');
+        }
+
+        function playMatch() {
+            const gameName = document.getElementById('game-select').value;
+            const wager = parseFloat(document.getElementById('wager-amount').value);
+            const balance = parseFloat(document.getElementById('wallet-balance').textContent.replace('$', ''));
+
+            if (!wager || wager <= 0) {
+                showAlert('Please enter a valid wager', 'error');
+                return;
+            }
+
+            if (wager > balance) {
+                showAlert('❌ Insufficient funds for this wager', 'error');
+                return;
+            }
+
+            const result = userEngine.enter1v1Match(gameName, wager);
+            displayMatchResult(result);
+            updateWalletDisplay(userEngine.getWalletState());
+            document.getElementById('wager-amount').value = '5.00';
+        }
+
+        function displayMatchResult(result) {
+            const resultDiv = document.getElementById('match-result');
+            const contentDiv = document.getElementById('result-content');
+            let html = '';
+
+            if (result.status === 'error') {
+                resultDiv.classList.add('loss');
+                html = `<div class="alert alert-error">${result.message}</div>`;
+            } else if (result.status === 'win') {
+                resultDiv.classList.remove('loss');
+                resultDiv.classList.add('win');
+                html = `
+                    <h3>🏆 VICTORY!</h3>
+                    <div class="result-score">Your Score: ${result.playerScore} vs ${result.opponentScore}</div>
+                    <p>💰 Winnings: +$${result.winnings.toFixed(2)}</p>
+                    <p>${result.message}</p>
+                `;
+            } else if (result.status === 'loss') {
+                resultDiv.classList.remove('win');
+                resultDiv.classList.add('loss');
+                html = `
+                    <h3>💀 DEFEAT</h3>
+                    <div class="result-score">Your Score: ${result.playerScore} vs ${result.opponentScore}</div>
+                    <p>${result.message}</p>
+                `;
+            }
+
+            contentDiv.innerHTML = html;
+            resultDiv.classList.remove('hidden');
+        }
+
+        function updateWalletDisplay(wallet) {
+            document.getElementById('wallet-cashtag').textContent = wallet.cashtag;
+            document.getElementById('wallet-balance').textContent = `$${wallet.balance.toFixed(2)}`;
+
+            const historyDiv = document.getElementById('history');
+            if (wallet.history.length === 0) {
+                historyDiv.innerHTML = '<p class="placeholder">No activity yet</p>';
+            } else {
+                historyDiv.innerHTML = wallet.history.map(item => `<div class="history-item">🟩 ${item}</div>`).join('');
+            }
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+
+            const parent = document.getElementById('wallet-section');
+            parent.insertBefore(alertDiv, parent.firstChild);
+
+            setTimeout(() => alertDiv.remove(), 3000);
+        }
+
+        function resetWallet() {
+            document.getElementById('wallet-section').classList.add('hidden');
+            document.getElementById('setup-section').classList.remove('hidden');
+            document.getElementById('cashtag').value = 'PlayerOne';
+            document.getElementById('initial-balance').value = '10.00';
+            document.getElementById('match-result').classList.add('hidden');
+            userEngine = null;
+        }
+    </script>
+</body>
+</html>
