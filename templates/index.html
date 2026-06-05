@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triumph - Cash Games Wallet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 TRIUMPH</h1>
+            <p>Cash Games Wallet</p>
+        </header>
+
+        <!-- Setup Section -->
+        <div id="setup-section" class="section">
+            <h2>Initialize Account</h2>
+            <div class="form-group">
+                <label for="cashtag">Cashtag/Username:</label>
+                <input type="text" id="cashtag" placeholder="PlayerOne" value="PlayerOne">
+            </div>
+            <div class="form-group">
+                <label for="initial-balance">Initial Balance:</label>
+                <input type="number" id="initial-balance" placeholder="10.00" value="10.00" min="0" step="0.01">
+            </div>
+            <button onclick="initWallet()" class="btn btn-primary">Create Account</button>
+        </div>
+
+        <!-- Main Wallet Section -->
+        <div id="wallet-section" class="section hidden">
+            <div class="wallet-header">
+                <h2>--- CASH APP GAMES WALLET ---</h2>
+                <div class="wallet-info">
+                    <p>User: <span id="wallet-cashtag">$PlayerOne</span></p>
+                    <p class="balance">Available Balance: <span id="wallet-balance">$0.00</span></p>
+                </div>
+            </div>
+
+            <!-- Deposit Section -->
+            <div class="subsection">
+                <h3>💳 Deposit Funds</h3>
+                <div class="form-group">
+                    <input type="number" id="deposit-amount" placeholder="Enter amount" min="0" step="0.01">
+                    <button onclick="depositFunds()" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+
+            <!-- Match Section -->
+            <div class="subsection">
+                <h3>🎮 Play a Match</h3>
+                <div class="form-group">
+                    <label for="game-select">Select Game:</label>
+                    <select id="game-select">
+                        <option value="Stocks Runner">Stocks Runner</option>
+                        <option value="Basketball Shootout">Basketball Shootout</option>
+                        <option value="Quick Trade">Quick Trade</option>
+                        <option value="Speed Clicker">Speed Clicker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="wager-amount">Wager Amount:</label>
+                    <input type="number" id="wager-amount" placeholder="5.00" value="5.00" min="0" step="0.01">
+                </div>
+                <button onclick="playMatch()" class="btn btn-warning">Enter Match</button>
+            </div>
+
+            <!-- Match Result -->
+            <div id="match-result" class="match-result hidden">
+                <div id="result-content"></div>
+            </div>
+
+            <!-- Activity History -->
+            <div class="subsection">
+                <h3>📜 Activity History</h3>
+                <div id="history" class="history">
+                    <p class="placeholder">No activity yet</p>
+                </div>
+            </div>
+
+            <button onclick="resetWallet()" class="btn btn-secondary">Reset Account</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
