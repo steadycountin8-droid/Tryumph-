@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 TRIUMPH - Real Money Gaming Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #ecf0f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            margin-bottom: 5px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        header p {
+            font-size: clamp(0.9em, 3vw, 1em);
+            color: #aaa;
+        }
+
+        .section {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            border-radius: 10px;
+            padding: clamp(15px, 5vw, 25px);
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            letter-spacing: 1px;
+        }
+
+        .section h3 {
+            color: #00d4ff;
+            margin: 15px 0 10px 0;
+            font-size: clamp(1em, 3vw, 1.3em);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: clamp(0.85em, 2vw, 0.95em);
+        }
+
+        input, select {
+            padding: 12px;
+            border: 1px solid #0f3460;
+            border-radius: 5px;
+            background: #0f0f1e;
+            color: #ecf0f1;
+            font-size: clamp(0.9em, 2vw, 1em);
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn {
+            padding: clamp(10px, 3vw, 12px) clamp(15px, 4vw, 25px);
+            border: none;
+            border-radius: 5px;
+            font-size: clamp(0.85em, 2vw, 1em);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: #0f3460;
+            color: white;
+            border: 2px solid #00d4ff;
+        }
+
+        .btn-primary:hover {
+            background: #00d4ff;
+            color: #0f0f1e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+
+        .btn-success:active {
+            transform: translateY(0);
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .balance-display {
+            font-size: clamp(1.5em, 6vw, 2em);
+            color: #00ff88;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin: 15px 0;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: clamp(0.85em, 2vw, 0.95em);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .alert-error {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid #e74c3c;
+            color: #ff6b6b;
+        }
+
+        .alert-success {
+            background: rgba(39, 174, 96, 0.2);
+            border-left: 4px solid #27ae60;
+            color: #51cf66;
+        }
+
+        .alert-info {
+            background: rgba(52, 152, 219, 0.2);
+            border-left: 4px solid #3498db;
+            color: #5dade2;
+        }
+
+        .game-arena {
+            background: #0f0f1e;
+            border: 3px solid #00d4ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-canvas {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #0f3460;
+        }
+
+        .player-character {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            user-select: none;
+            animation: jump 0.5s ease-in-out;
+        }
+
+        @keyframes jump {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-80px); }
+        }
+
+        .obstacle {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 5px;
+            animation: moveLeft 3s linear forwards;
+        }
+
+        @keyframes moveLeft {
+            from { right: -60px; }
+            to { right: 100%; }
+        }
+
+        .coin {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #f1c40f;
+            border-radius: 50%;
+            animation: moveLeftCoin 4s linear forwards;
+            box-shadow: 0 0 10px #f1c40f;
+        }
+
+        @keyframes moveLeftCoin {
+            from { right: -40px; }
+            to { right: 100%; }
+        }
+
+        .game-result {
+            background: #0f0f1e;
+            border: 3px solid #00d4ff;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .game-result.win {
+            border-color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        .game-result.loss {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .score-display {
+            font-size: clamp(1.2em, 4vw, 1.8em);
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .result-emoji {
+            font-size: clamp(2em, 8vw, 4em);
+            margin: 10px 0;
+            animation: bounce 0.6s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .btn-group-full {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-card {
+            background: #0f0f1e;
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-card label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85em;
+        }
+
+        .stat-card value {
+            display: block;
+            font-size: clamp(1.2em, 3vw, 1.5em);
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .payment-option {
+            background: #0f0f1e;
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .payment-option.active {
+            border-color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            header {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .section {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            .btn-group {
+                grid-template-columns: 1fr;
+            }
+
+            .game-canvas {
+                height: 300px;
+            }
+
+            .player-character {
+                font-size: 40px;
+            }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px;
+            background: #0f3460;
+            border: 2px solid #0f3460;
+            color: #ecf0f1;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #00d4ff;
+            color: #0f0f1e;
+            border-color: #00d4ff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #0f3460;
+            border-top: 3px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .transaction-item {
+            background: #0f0f1e;
+            border-left: 4px solid #00d4ff;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .transaction-item.deposit {
+            border-left-color: #27ae60;
+        }
+
+        .transaction-item.withdrawal {
+            border-left-color: #e74c3c;
+        }
+
+        .transaction-item.game {
+            border-left-color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 TRIUMPH</h1>
+            <p>Real Money Gaming Platform</p>
+        </header>
+
+        <!-- Authentication Section -->
+        <div id="auth-section" class="section">
+            <h2>🔐 Create Account or Login</h2>
+            <div id="auth-alerts"></div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchAuthTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchAuthTab('register')">Register</button>
+            </div>
+
+            <!-- Login Tab -->
+            <div id="login-tab" class="tab-content active">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="login-username" placeholder="your_username">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
+                </div>
+                
+                <button onclick="loginUser()" class="btn btn-primary">Login</button>
+            </div>
+
+            <!-- Register Tab -->
+            <div id="register-tab" class="tab-content">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="register-username" placeholder="your_username">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="register-email" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="register-password" placeholder="••••••••">
+                </div>
+                
+                <div class="form-group">
+                    <label>Date of Birth (Must be 18+):</label>
+                    <input type="date" id="register-dob">
+                </div>
+                
+                <button onclick="registerUser()" class="btn btn-primary">Create Account</button>
+            </div>
+        </div>
+
+        <!-- Game Section -->
+        <div id="game-section" class="section hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <h2 style="margin: 0;">🎮 TRIUMPH Gaming</h2>
+                <button onclick="showLogout()" class="btn btn-danger" style="width: auto; margin: 0; padding: 8px 15px;">Logout</button>
+            </div>
+
+            <div class="balance-display">💵 $<span id="balance">0.00</span></div>
+
+            <!-- Tabs for different sections -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('play')">Play</button>
+                <button class="tab-btn" onclick="switchTab('deposit')">Deposit</button>
+                <button class="tab-btn" onclick="switchTab('withdraw')">Withdraw</button>
+                <button class="tab-btn" onclick="switchTab('stats')">Stats</button>
+            </div>
+
+            <!-- Play Tab -->
+            <div id="play-tab" class="tab-content active">
+                <div class="form-group">
+                    <label>Select Game:</label>
+                    <select id="game-select">
+                        <option value="Stocks Runner">📈 Stocks Runner - Jump obstacles!</option>
+                        <option value="Basketball Shootout">🏀 Basketball Shootout - Collect coins!</option>
+                        <option value="Quick Trade">⚡ Quick Trade - Tap to react!</option>
+                        <option value="Speed Clicker">🖱️ Speed Clicker - Click fast!</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Wager Amount ($):</label>
+                    <input type="number" id="wager-amount" value="10.00" min="1" max="500" step="0.01">
+                </div>
+
+                <div id="game-instructions" class="alert alert-info" style="margin-top: 15px;">
+                    <strong>📋 Game Instructions:</strong><br>
+                    Press SPACE or TAP to jump and avoid obstacles. Higher scores = bigger payouts!
+                </div>
+
+                <div class="game-arena">
+                    <div class="game-canvas" id="game-canvas">
+                        <div class="player-character" id="player">🚀</div>
+                    </div>
+                </div>
+
+                <div class="btn-group-full">
+                    <button onclick="startGame()" class="btn btn-warning">Start Game</button>
+                </div>
+
+                <div id="game-result" class="game-result hidden">
+                    <div class="result-emoji" id="result-emoji">🏆</div>
+                    <div class="score-display">Score: <span id="game-score">0</span></div>
+                    <div>Wager: $<span id="result-wager">0</span></div>
+                    <div style="font-size: 1.3em; margin: 10px 0;">Payout: $<span id="result-payout">0.00</span></div>
+                    <div class="btn-group-full">
+                        <button onclick="playAgain()" class="btn btn-primary">Play Again</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deposit Tab -->
+            <div id="deposit-tab" class="tab-content">
+                <h3>💳 Add Funds to Your Account</h3>
+
+                <div class="form-group">
+                    <label>Deposit Amount ($):</label>
+                    <input type="number" id="deposit-amount" value="50.00" min="5" max="10000" step="0.01">
+                </div>
+
+                <h3>Payment Method</h3>
+                <div class="payment-option active" onclick="selectPayment('card')">
+                    <input type="radio" name="payment" value="card" checked>
+                    <label>💳 Credit/Debit Card</label>
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 5px;">Stripe - Test: 4242 4242 4242 4242</p>
+                </div>
+
+                <div class="payment-option" onclick="selectPayment('bank')">
+                    <input type="radio" name="payment" value="bank">
+                    <label>🏦 Bank Transfer (ACH)</label>
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 5px;">Direct bank transfer - 1-2 business days</p>
+                </div>
+
+                <div class="payment-option" onclick="selectPayment('wallet')">
+                    <input type="radio" name="payment" value="wallet">
+                    <label>💰 E-Wallet (PayPal)</label>
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 5px;">Quick and secure</p>
+                </div>
+
+                <button onclick="initiateDeposit()" class="btn btn-success">Add Funds Now</button>
+
+                <div class="alert alert-info" style="margin-top: 15px;">
+                    <strong>ℹ️ Test Mode:</strong> Use test card 4242 4242 4242 4242, any future date, CVC 123
+                </div>
+            </div>
+
+            <!-- Withdraw Tab -->
+            <div id="withdraw-tab" class="tab-content">
+                <h3>💸 Withdraw Funds</h3>
+
+                <div class="form-group">
+                    <label>Withdrawal Amount ($):</label>
+                    <input type="number" id="withdraw-amount" value="25.00" min="5" max="10000" step="0.01">
+                </div>
+
+                <h3>Destination Account</h3>
+                <div class="payment-option active" onclick="selectWithdraw('bank')">
+                    <input type="radio" name="withdraw" value="bank" checked>
+                    <label>🏦 Bank Account</label>
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 5px;">2-5 business days</p>
+                </div>
+
+                <div class="payment-option" onclick="selectWithdraw('wallet')">
+                    <input type="radio" name="withdraw" value="wallet">
+                    <label>💰 PayPal</label>
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 5px;">24-48 hours</p>
+                </div>
+
+                <button onclick="initiateWithdraw()" class="btn btn-success">Request Withdrawal</button>
+
+                <div class="alert alert-info" style="margin-top: 15px;">
+                    <strong>📋 Note:</strong> Minimum withdrawal: $5 | Processing fee: 2%
+                </div>
+            </div>
+
+            <!-- Stats Tab -->
+            <div id="stats-tab" class="tab-content">
+                <h3>📊 Your Statistics</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <label>Total Deposited</label>
+                        <value>$<span id="stat-deposited">0.00</span></value>
+                    </div>
+                    <div class="stat-card">
+                        <label>Total Wagered</label>
+                        <value>$<span id="stat-wagered">0.00</span></value>
+                    </div>
+                    <div class="stat-card">
+                        <label>Total Won</label>
+                        <value>$<span id="stat-won">0.00</span></value>
+                    </div>
+                    <div class="stat-card">
+                        <label>Games Played</label>
+                        <value><span id="stat-games">0</span></value>
+                    </div>
+                </div>
+
+                <h3>📜 Recent Transactions</h3>
+                <div id="transactions-list" style="max-height: 400px; overflow-y: auto;">
+                    <p style="color: #aaa; text-align: center;">No transactions yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+        <div class="section" style="max-width: 300px;">
+            <h2 style="text-align: center; margin-bottom: 20px;">Logout?</h2>
+            <div class="btn-group">
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+                <button onclick="cancelLogout()" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            isPlaying: false,
+            score: 0,
+            playerPos: { x: 50, y: 350 },
+            isJumping: false,
+            velocityY: 0,
+            gameActive: false,
+            obstacles: [],
+            coins: [],
+            startTime: 0
+        };
+
+        let currentPlayer = null;
+        let gameAnimationId = null;
+
+        // Auth Functions
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('#game-section .tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#game-section .tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showAlert(message, type = 'success', container = 'auth-alerts') {
+            const container_el = document.getElementById(container);
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            container_el.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        async function registerUser() {
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const dob = document.getElementById('register-dob').value;
+
+            if (!username || !email || !password || !dob) {
+                showAlert('Please fill all fields', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        username, 
+                        email, 
+                        password, 
+                        date_of_birth: dob, 
+                        first_name: username 
+                    })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showAlert('✅ Account created! You got $50 bonus! Now login.', 'success');
+                    setTimeout(() => {
+                        switchAuthTab('login');
+                        document.getElementById('login-username').value = username;
+                    }, 1500);
+                } else {
+                    showAlert('❌ ' + (data.error || 'Registration failed'), 'error');
+                }
+            } catch (e) {
+                showAlert('❌ Error: ' + e.message, 'error');
+            }
+        }
+
+        async function loginUser() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!username || !password) {
+                showAlert('Enter username and password', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    currentPlayer = data;
+                    document.getElementById('auth-section').classList.add('hidden');
+                    document.getElementById('game-section').classList.remove('hidden');
+                    updateBalance();
+                    loadStats();
+                    showAlert('✅ Welcome ' + username + '!', 'success', 'game-section');
+                } else {
+                    showAlert('❌ ' + (data.error || 'Login failed'), 'error');
+                }
+            } catch (e) {
+                showAlert('❌ Error: ' + e.message, 'error');
+            }
+        }
+
+        async function updateBalance() {
+            try {
+                const response = await fetch('/api/payment/balance');
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('balance').textContent = data.balance.toFixed(2);
+                }
+            } catch (e) {
+                console.error('Balance error:', e);
+            }
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/payment/balance');
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('stat-deposited').textContent = data.total_deposited.toFixed(2);
+                    document.getElementById('stat-wagered').textContent = data.total_wagered.toFixed(2);
+                    document.getElementById('stat-won').textContent = data.total_won.toFixed(2);
+                }
+            } catch (e) {
+                console.error('Stats error:', e);
+            }
+        }
+
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelector('input[name="payment"][value="' + method + '"]').checked = true;
+        }
+
+        function selectWithdraw(method) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelector('input[name="withdraw"][value="' + method + '"]').checked = true;
+        }
+
+        async function initiateDeposit() {
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            const method = document.querySelector('input[name="payment"]:checked').value;
+
+            if (!amount || amount <= 0) {
+                showAlert('Enter valid amount', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/payment/deposit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, payment_method: method })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showAlert('✅ Deposit of $' + amount.toFixed(2) + ' successful!', 'success', 'game-section');
+                    updateBalance();
+                    loadStats();
+                    document.getElementById('deposit-amount').value = '50.00';
+                } else {
+                    showAlert('❌ ' + (data.error || 'Deposit failed'), 'error');
+                }
+            } catch (e) {
+                showAlert('❌ Error: ' + e.message, 'error');
+            }
+        }
+
+        async function initiateWithdraw() {
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const method = document.querySelector('input[name="withdraw"]:checked').value;
+
+            if (!amount || amount <= 0) {
+                showAlert('Enter valid amount', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/payment/withdraw', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, withdraw_method: method })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showAlert('✅ Withdrawal request submitted! Processing in 2-5 business days.', 'success', 'game-section');
+                    updateBalance();
+                    loadStats();
+                } else {
+                    showAlert('❌ ' + (data.error || 'Withdrawal failed'), 'error');
+                }
+            } catch (e) {
+                showAlert('❌ Error: ' + e.message, 'error');
+            }
+        }
+
+        // Game Functions
+        async function startGame() {
+            const gameName = document.getElementById('game-select').value;
+            const wager = parseFloat(document.getElementById('wager-amount').value);
+            const balance = parseFloat(document.getElementById('balance').textContent);
+
+            if (wager > balance) {
+                showAlert('Insufficient funds!', 'error');
+                return;
+            }
+
+            gameState = {
+                isPlaying: true,
+                score: 0,
+                playerPos: { x: 50, y: 350 },
+                isJumping: false,
+                velocityY: 0,
+                gameActive: true,
+                obstacles: [],
+                coins: [],
+                startTime: Date.now(),
+                gameName: gameName,
+                wager: wager
+            };
+
+            document.getElementById('game-result').classList.add('hidden');
+            const canvas = document.getElementById('game-canvas');
+            canvas.innerHTML = '<div class="player-character" id="player">🚀</div>';
+
+            setupGameControls();
+            gameLoop();
+        }
+
+        function setupGameControls() {
+            const handleJump = (e) => {
+                if ((e.code === 'Space' || e.type === 'touchstart') && gameState.gameActive && !gameState.isJumping) {
+                    gameState.isJumping = true;
+                    gameState.velocityY = -15;
+                    e.preventDefault();
+                }
+            };
+
+            document.addEventListener('keydown', handleJump);
+            document.getElementById('game-canvas').addEventListener('touchstart', handleJump);
+        }
+
+        function gameLoop() {
+            if (!gameState.gameActive) return;
+
+            const canvas = document.getElementById('game-canvas');
+            const player = document.getElementById('player');
+
+            // Gravity
+            gameState.velocityY += 0.6;
+            gameState.playerPos.y += gameState.velocityY;
+
+            // Ground collision
+            if (gameState.playerPos.y >= 350) {
+                gameState.playerPos.y = 350;
+                gameState.isJumping = false;
+                gameState.velocityY = 0;
+            }
+
+            // Update player position
+            player.style.bottom = (canvas.offsetHeight - gameState.playerPos.y - 60) + 'px';
+
+            // Spawn obstacles
+            if (Math.random() < 0.02) {
+                const obstacle = document.createElement('div');
+                obstacle.className = 'obstacle';
+                obstacle.style.top = (Math.random() * 200) + 'px';
+                canvas.appendChild(obstacle);
+                gameState.obstacles.push({ el: obstacle, x: canvas.offsetWidth });
+
+                setTimeout(() => obstacle.remove(), 3000);
+            }
+
+            // Spawn coins
+            if (Math.random() < 0.01) {
+                const coin = document.createElement('div');
+                coin.className = 'coin';
+                coin.style.top = (Math.random() * 250) + 'px';
+                canvas.appendChild(coin);
+                gameState.coins.push({ el: coin, x: canvas.offsetWidth });
+
+                setTimeout(() => coin.remove(), 4000);
+            }
+
+            // Check collisions
+            gameState.obstacles.forEach((obs, idx) => {
+                obs.x -= 5;
+                if (obs.x < 0) {
+                    gameState.obstacles.splice(idx, 1);
+                    gameState.score += 10;
+                }
+
+                // Collision detection
+                if (Math.abs(obs.x - 100) < 30 && Math.abs(gameState.playerPos.y - (parseInt(obs.el.style.top) || 0) - 25) < 40) {
+                    gameState.gameActive = false;
+                    endGame();
+                    return;
+                }
+            });
+
+            gameState.coins.forEach((coin, idx) => {
+                coin.x -= 5;
+                if (coin.x < 0) {
+                    gameState.coins.splice(idx, 1);
+                    gameState.score += 25;
+                }
+
+                // Coin collection
+                if (Math.abs(coin.x - 100) < 30 && Math.abs(gameState.playerPos.y - (parseInt(coin.el.style.top) || 0) - 15) < 35) {
+                    coin.el.remove();
+                    gameState.coins.splice(idx, 1);
+                    gameState.score += 50;
+                }
+            });
+
+            if (gameState.gameActive) {
+                gameAnimationId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        async function endGame() {
+            gameState.gameActive = false;
+
+            const payout = (gameState.score / 100) * gameState.wager;
+            const win = gameState.score > 50;
+
+            try {
+                const response = await fetch('/api/payment/play-game', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        game_name: gameState.gameName,
+                        wager: gameState.wager,
+                        score: gameState.score,
+                        payout: payout,
+                        result: win ? 'win' : 'loss'
+                    })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    displayGameResult(win, payout);
+                    updateBalance();
+                    loadStats();
+                }
+            } catch (e) {
+                console.error('Game error:', e);
+                displayGameResult(false, 0);
+            }
+        }
+
+        function displayGameResult(win, payout) {
+            document.getElementById('result-emoji').textContent = win ? '🏆' : '💀';
+            document.getElementById('game-score').textContent = gameState.score;
+            document.getElementById('result-wager').textContent = gameState.wager.toFixed(2);
+            document.getElementById('result-payout').textContent = payout.toFixed(2);
+
+            const resultDiv = document.getElementById('game-result');
+            resultDiv.className = 'game-result ' + (win ? 'win' : 'loss');
+            resultDiv.classList.remove('hidden');
+        }
+
+        function playAgain() {
+            startGame();
+        }
+
+        function showLogout() {
+            document.getElementById('logout-modal').classList.remove('hidden');
+        }
+
+        function cancelLogout() {
+            document.getElementById('logout-modal').classList.add('hidden');
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/auth/logout');
+                document.getElementById('game-section').classList.add('hidden');
+                document.getElementById('auth-section').classList.remove('hidden');
+                document.getElementById('login-username').value = '';
+                document.getElementById('login-password').value = '';
+                currentPlayer = null;
+                document.getElementById('logout-modal').classList.add('hidden');
+                showAlert('✅ Logged out', 'success');
+            } catch (e) {
+                showAlert('❌ Logout error: ' + e.message, 'error');
+            }
+        }
+
+        // Set max date for DOB
+        const today = new Date();
+        const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+        document.getElementById('register-dob').max = maxDate.toISOString().split('T')[0];
+    </script>
+</body>
+</html>
